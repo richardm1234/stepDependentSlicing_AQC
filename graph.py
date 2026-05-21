@@ -1,7 +1,8 @@
 import networkx as nx
 from qiskit import QuantumCircuit
+import math
 
-def createExampleCircuit(G):
+def createExampleCircuit(G) -> QuantumCircuit:
     """Converts the 4 node graph to a QAOA circuit from the paper for testing purposes"""
     gamma = 0.5
     beta = 0.3
@@ -33,4 +34,12 @@ def convertToLineGraph(circuit: QuantumCircuit):
     for i in range(circuit.num_qubits):
         LG.add_node(i)
     return LG
+
+def rgreedy(G, tau, q):
+    p = 0.
+    for i in range(q):
+        for j in G.nodes:
+            p = math.exp(-1/tau * j.neighbors)
+    return p
+
 
