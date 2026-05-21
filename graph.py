@@ -71,9 +71,9 @@ def rgreedy(G, tau, q):
         q (int): number of repetitions
 
     Returns:
-        float: probability
+        list: probability
     """
-    p = 0.
+
     nodes = list(G.nodes)
     weights = []
 
@@ -85,7 +85,7 @@ def rgreedy(G, tau, q):
     prob = []
     for w in weights:
         prob.append(w / total_w)
-    return p
+    return prob
 
 
 
