@@ -71,7 +71,7 @@ def rgreedy(G, tau, q):
         q (int): number of repetitions
 
     Returns:
-        list: probability
+        list[float]: probability
     """
 
     nodes = list(G.nodes)
