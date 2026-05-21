@@ -74,9 +74,17 @@ def rgreedy(G, tau, q):
         float: probability
     """
     p = 0.
-    for i in range(q):
-        for j in G.nodes:
-            p = math.exp(-1/tau * j.neighbors)
+    nodes = list(G.nodes)
+    weights = []
+
+    for v in nodes:
+        num_neighbors = len(list(G.neighbors(v)))
+        w = math.exp(-1/tau * num_neighbors)
+        weights.append(w)
+    total_w = sum(weights)
+    prob = []
+    for w in weights:
+        prob.append(w / total_w)
     return p
 
 
