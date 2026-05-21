@@ -28,8 +28,9 @@ def createGraph():
     nx.draw(G, with_labels = True)
     return G
 
-def convertToLineGraph(G):
-    LG = nx.line_graph(G)
-    nx.draw(LG, with_labels = True)
+def convertToLineGraph(circuit: QuantumCircuit):
+    LG = nx.Graph()
+    for i in range(circuit.num_qubits):
+        LG.add_node(i)
     return LG
 
