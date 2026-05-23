@@ -1,6 +1,7 @@
 import networkx as nx
 from qiskit import QuantumCircuit
 import math
+import sys
 import random
 from itertools import combinations
 
@@ -93,7 +94,7 @@ def rgreedy(G, tau, q):
         list[nodes], int: the best ordering based on minimal contraction width
     """
     best_order = None
-    best_width = math.inf
+    best_width = sys.maxsize
     for i in range(q):
         order = []
         width = 0
@@ -102,6 +103,8 @@ def rgreedy(G, tau, q):
 
         while G_copy.number_of_nodes() > 0:
             nodes = list(G_copy.nodes())
+
+            # calculate probabilities for each node
             for v in nodes:
                 num_neighbors = len(list(G.neighbors(v)))
                 w = math.exp(-1/tau * num_neighbors)
@@ -110,6 +113,17 @@ def rgreedy(G, tau, q):
             prob = []
             for w in weights:
                 prob.append(w / total_w)
+
+            v = random.choices(nodes, weights=prob)[0]
+
+            width = max(width, len(list(G_copy.neighbors(v))))
+            order.append(v)
+
+            contract(G_copy, v)
+
+        if width < best_width:
+            best_width = width
+            best_order = order
     return best_order, best_width
 
 
