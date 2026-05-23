@@ -128,6 +128,20 @@ def rgreedy(G, tau, q):
             bestOrder = order
     return bestOrder, bestWidth
 
+def stepDependentSlicing(LG, order, n, r):
+    """
+    Slice a graph to find optimal step s
 
+    Args:
+        LG (nx.Graph): line graph
+        order: ordering of which indices to contract based on rgreedy
+        n: total number of indices to slice
+        r: number of nodes to slice per step
+
+    Returns:
+        int: optimal s
+        list[nodes]: which nodes to slice
+    """
+    pass
 
 
