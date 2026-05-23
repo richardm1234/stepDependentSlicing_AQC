@@ -73,7 +73,7 @@ def contract(G, v):
          v (_Node): the node to be removed
 
     Returns:
-          nx.Graph: copy of G with contracted node v
+          nx.Graph: copy of G after contracting node v
     """
     G_copy = G.copy()
     neighbors = list(G.neighbors(v))
@@ -93,8 +93,8 @@ def rgreedy(G, tau, q):
     Returns:
         list[nodes], int: the best ordering based on minimal contraction width
     """
-    best_order = None
-    best_width = sys.maxsize
+    bestOrder = None
+    bestWidth = sys.maxsize
     for i in range(q):
         order = []
         width = 0
@@ -109,10 +109,10 @@ def rgreedy(G, tau, q):
                 num_neighbors = len(list(G.neighbors(v)))
                 w = math.exp(-1/tau * num_neighbors)
                 weights.append(w)
-            total_w = sum(weights)
+            weightsSum = sum(weights)
             prob = []
             for w in weights:
-                prob.append(w / total_w)
+                prob.append(w / weightsSum)
 
             v = random.choices(nodes, weights=prob)[0]
 
@@ -121,10 +121,10 @@ def rgreedy(G, tau, q):
 
             contract(G_copy, v)
 
-        if width < best_width:
-            best_width = width
-            best_order = order
-    return best_order, best_width
+        if width < bestWidth:
+            bestWidth = width
+            bestOrder = order
+    return bestOrder, bestWidth
 
 
 
