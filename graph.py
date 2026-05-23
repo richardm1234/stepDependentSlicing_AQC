@@ -41,14 +41,17 @@ def createNodeGraph():
     return G
 
 
-def createGraph():
+def createGraph(n):
     """
-    Creates a 3-regular graph with 10 nodes
+    Create a 3-regular graph with 10 nodes
+
+    Args:
+        n (int): The number of nodes
 
     Returns:
         nx.Graph: 3-regular graph
     """
-    G = nx.random_regular_graph(3, 10)
+    G = nx.random_regular_graph(3, n)
     return G
 
 def convertToLineGraph(circuit: QuantumCircuit):
