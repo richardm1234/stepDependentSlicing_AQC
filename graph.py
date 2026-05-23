@@ -1,6 +1,8 @@
 import networkx as nx
 from qiskit import QuantumCircuit
 import math
+import random
+from itertools import combinations
 
 def createExampleCircuit(G):
     """
@@ -61,6 +63,22 @@ def convertToLineGraph(circuit: QuantumCircuit):
         LG.add_node(i)
     return LG
 
+def contract(G, v):
+    """
+    Contract a tensor index by removing a node and turning its neighbors into a clique
+
+    Args:
+         G (nx.Graph): graph
+         v (_Node): the node to be removed
+
+    Returns:
+          nx.Graph: resulting graph
+    """
+    neighbors = list(G.neighbors(v))
+    G.add_edges_from(combinations(neighbors, 2))
+    G.remove_node(v)
+    return G
+
 def rgreedy(G, tau, q):
     """
     Implementation of the randomized greedy ordering algorithm
@@ -86,6 +104,7 @@ def rgreedy(G, tau, q):
     for w in weights:
         prob.append(w / total_w)
     return prob
+
 
 
 
