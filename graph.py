@@ -138,7 +138,7 @@ def plotNeighbors(widths):
     Plot the number of neighbors
 
     Args:
-        widths
+        widths: The number of neighbors
     """
     fig, neighbors = plt.subplots()
     neighbors.plot(range(len(widths)), widths, color='red', linestyle='-')
