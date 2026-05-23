@@ -106,7 +106,7 @@ def rgreedy(G, tau, q):
 
             # calculate probabilities for each node
             for v in nodes:
-                num_neighbors = len(list(G.neighbors(v)))
+                num_neighbors = len(list(G_copy.neighbors(v)))
                 w = math.exp(-1/tau * num_neighbors)
                 weights.append(w)
             weightsSum = sum(weights)
