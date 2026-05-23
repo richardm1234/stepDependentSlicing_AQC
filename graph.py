@@ -98,11 +98,13 @@ def rgreedy(G, tau, q):
     for i in range(q):
         order = []
         width = 0
-        weights = []
+
         G_copy = G.copy()
 
         while G_copy.number_of_nodes() > 0:
             nodes = list(G_copy.nodes())
+            weights = []
+            prob = []
 
             # calculate probabilities for each node
             for v in nodes:
@@ -110,7 +112,7 @@ def rgreedy(G, tau, q):
                 w = math.exp(-1/tau * num_neighbors)
                 weights.append(w)
             weightsSum = sum(weights)
-            prob = []
+
             for w in weights:
                 prob.append(w / weightsSum)
 
