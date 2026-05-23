@@ -90,21 +90,27 @@ def rgreedy(G, tau, q):
         q (int): number of repetitions
 
     Returns:
-        list[float]: probability
+        list[nodes], int: the best ordering based on minimal contraction width
     """
+    best_order = None
+    best_width = math.inf
     for i in range(q):
-        nodes = list(G.nodes)
+        order = []
+        width = 0
         weights = []
+        G_copy = G.copy()
 
-        for v in nodes:
-            num_neighbors = len(list(G.neighbors(v)))
-            w = math.exp(-1/tau * num_neighbors)
-            weights.append(w)
-        total_w = sum(weights)
-        prob = []
-        for w in weights:
-            prob.append(w / total_w)
-    return prob
+        while G_copy.number_of_nodes() > 0:
+            nodes = list(G_copy.nodes())
+            for v in nodes:
+                num_neighbors = len(list(G.neighbors(v)))
+                w = math.exp(-1/tau * num_neighbors)
+                weights.append(w)
+            total_w = sum(weights)
+            prob = []
+            for w in weights:
+                prob.append(w / total_w)
+    return best_order, best_width
 
 
 
