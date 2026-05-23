@@ -4,13 +4,15 @@ import math
 import sys
 import random
 from itertools import combinations
+import matplotlib.pyplot as plt
+import numpy as np
 
 def createExampleCircuit(G):
     """
-    Converts the 4 node graph to a QAOA circuit from the paper for testing purposes
+    Convert the 4 node graph to a QAOA circuit from the paper for testing purposes
 
     Args:
-        G: Graph from createNodeGraph()
+        G (nx.Graph): Graph from createNodeGraph()
 
     Returns:
         QuantumCircuit: QAOA Quantum Circuit
@@ -91,13 +93,15 @@ def rgreedy(G, tau, q):
         q (int): number of repetitions
 
     Returns:
-        list[nodes], int: the best ordering based on minimal contraction width
+        list[nodes], int, list[int]: the best ordering, its contraction width and a list of widths
     """
     bestOrder = None
     bestWidth = sys.maxsize
+    bestNeighbors = []
     for i in range(q):
         order = []
         width = 0
+        widths = []
 
         G_copy = G.copy()
 
@@ -105,7 +109,6 @@ def rgreedy(G, tau, q):
             nodes = list(G_copy.nodes())
             weights = []
             prob = []
-
             # calculate probabilities for each node
             for v in nodes:
                 num_neighbors = len(list(G_copy.neighbors(v)))
@@ -120,13 +123,30 @@ def rgreedy(G, tau, q):
 
             width = max(width, len(list(G_copy.neighbors(v))))
             order.append(v)
+            widths.append(len(list(G_copy.neighbors(v))))
 
             contract(G_copy, v)
 
         if width < bestWidth:
             bestWidth = width
             bestOrder = order
-    return bestOrder, bestWidth
+            bestNeighbors = widths
+    return bestOrder, bestWidth, bestNeighbors
+
+def plotNeighbors(widths):
+    """
+    Plot the number of neighbors
+
+    Args:
+        widths
+    """
+    fig, neighbors = plt.subplots()
+    neighbors.plot(range(len(widths)), widths, color='red', linestyle='-')
+    neighbors.set_title("Contraction width")
+    neighbors.set_xlabel("Steps")
+    neighbors.set_ylabel("Num neighbors")
+
+    plt.show()
 
 def stepDependentSlicing(LG, order, n, r):
     """
