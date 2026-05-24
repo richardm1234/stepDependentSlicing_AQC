@@ -30,17 +30,6 @@ def createExampleCircuit(G):
         circuit.rx(2*beta, i)
     return circuit
 
-def createNodeGraph():
-    """
-    Create a basic 4 node graph for testing purposes
-
-    Returns:
-        nx.Graph: 4-node graph
-    """
-    G = nx.random_regular_graph(3, 4)
-    return G
-
-
 def createGraph(n):
     """
     Create a 3-regular graph with 10 nodes
