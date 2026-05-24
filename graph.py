@@ -179,7 +179,7 @@ def findOptimalS(G, widths, order):
     for s in range(peak):
         G_copy = G.copy()
 
-        for v in order[:peak]:
+        for v in order[:s]:
             contract(G_copy, v)
 
         maxNeighbors = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v), reverse=True)[0]
