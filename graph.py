@@ -7,9 +7,9 @@ from itertools import combinations
 import matplotlib.pyplot as plt
 import numpy as np
 
-def createExampleCircuit(G):
+def createCircuit(G):
     """
-    Convert the 4 node graph to a QAOA circuit from the paper for testing purposes
+    Convert a 3-regular graph to a QAOA circuit
 
     Args:
         G (nx.Graph): Graph from createNodeGraph()
@@ -19,15 +19,15 @@ def createExampleCircuit(G):
     """
     gamma = 0.5
     beta = 0.3
-    circuit = QuantumCircuit(4)
-    for i in range(4):
-        circuit.h(i)
+    n = len(G.nodes())
+    circuit = QuantumCircuit(n)
+    circuit.h(range(n))
 
     for u,v in G.edges():
         circuit.rzz(2*gamma, u, v)
-
-    for i in range(4):
+    for i in range(n):
         circuit.rx(2*beta, i)
+
     return circuit
 
 def createGraph(n):
