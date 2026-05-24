@@ -96,7 +96,7 @@ def rgreedy(G, tau, q):
         q (int): number of repetitions
 
     Returns:
-        list[nodes], int, list[int]: the best ordering, its contraction width and a list of widths
+        list[int], int, list[int]: the best ordering, its contraction width and a list of widths
     """
     bestOrder = None
     bestWidth = sys.maxsize
@@ -158,6 +158,14 @@ def plotNeighbors(widths):
     plt.show()
 
 def findOptimalS(G, widths, order):
+    """
+    Find the optimal step s
+
+    Args:
+        G (nx.Graph): line graph
+        widths (list[int]): the degrees of each node
+        order (list[int]): the initial ordering
+    """
     peak = widths.index(max(widths))
     minCWidth = sys.maxsize
     optimalS = 0
