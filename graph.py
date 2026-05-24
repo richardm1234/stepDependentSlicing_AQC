@@ -165,10 +165,16 @@ def findOptimalS(G, widths, order):
         G (nx.Graph): line graph
         widths (list[int]): the degrees of each node
         order (list[int]): the initial ordering
+
+    Returns:
+        list[int], int, list[int], int: new ordering with less contraction width, the width profile
+        and the optimal step S at which to slice r highest vertices
     """
     peak = widths.index(max(widths))
     minCWidth = sys.maxsize
     optimalS = 0
+    newWidths = []
+    newOrdering = []
 
     for s in range(peak):
         G_copy = G.copy()
@@ -178,12 +184,15 @@ def findOptimalS(G, widths, order):
 
         maxNeighbors = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v), reverse=True)[0]
         G_copy.remove_node(maxNeighbors)
-        _, width, _ = rgreedy(G_copy, 0.5, 25)
+        newOrder, width, neighbors = rgreedy(G_copy, 0.5, 25)
         if width < minCWidth:
+            newOrdering = newOrder
             minCWidth = width
+            newWidths = neighbors
             optimalS = s
 
-    return minCWidth, optimalS
+
+    return newOrdering, minCWidth, newWidths, optimalS
 
 def stepDependentSlicing(LG, order, n, r):
     """
