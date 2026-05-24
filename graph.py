@@ -143,13 +143,39 @@ def plotNeighbors(widths):
     Args:
         widths: The number of neighbors
     """
-    fig, neighbors = plt.subplots()
-    neighbors.plot(range(len(widths)), widths, color='red', linestyle='-')
+    x = range(len(widths))
+    neighbors = plt.subplot(1,2,1)
+    neighbors.plot(x, widths, color='red', linestyle='-')
     neighbors.set_title("Contraction width")
     neighbors.set_xlabel("Steps")
-    neighbors.set_ylabel("Num neighbors")
+    neighbors.set_ylabel("Number of neighbors")
+
+    cost = plt.subplot(1,2,2)
+    cost.plot(x, np.exp2(widths), color='red', linestyle='-')
+    cost.set_title("Computational cost")
+    neighbors.set_xlabel("Steps")
 
     plt.show()
+
+def findOptimalS(G, widths, order):
+    peak = widths.index(max(widths))
+    minCWidth = sys.maxsize
+    optimalS = 0
+
+    for s in range(peak):
+        G_copy = G.copy()
+
+        for v in order[:peak]:
+            contract(G_copy, v)
+
+        maxNeighbors = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v), reverse=True)[0]
+        G_copy.remove_node(maxNeighbors)
+        _, width, _ = rgreedy(G_copy, 0.5, 25)
+        if width < minCWidth:
+            minCWidth = width
+            optimalS = s
+
+    return minCWidth, optimalS
 
 def stepDependentSlicing(LG, order, n, r):
     """
