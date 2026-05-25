@@ -76,7 +76,30 @@ def contract(G, v):
     return G_copy
 
 def greedy(G):
-    min = sorted(G.nodes(), key=lambda v: G.degree(v))[0]
+    """
+    Always eliminate lowest degree vertex
+
+    Args:
+        G (nx.Graph): graph
+
+    Returns:
+        list[int], int, list[int]: the ordering, contraction width and the widths
+    """
+    G_copy = G.copy()
+    order = []
+    width = 0
+    widths = []
+
+    while G_copy.number_of_nodes() > 0:
+
+        minDeg = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v))[0]
+        widths.append(G_copy.degree(minDeg))
+        width = max(width, G_copy.degree(minDeg))
+        order.append(minDeg)
+
+        contract(G_copy, minDeg)
+
+    return order, width, widths
 
 def rgreedy(G, tau, q):
     """
