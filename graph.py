@@ -199,7 +199,8 @@ def findOptimalS(G, widths, order):
 
         maxNeighbors = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v), reverse=True)[0]
         G_copy.remove_node(maxNeighbors)
-        newOrder, width, neighbors = rgreedy(G_copy, 0.5, 25)
+        newOrder, width, neighbors = greedy(G_copy)
+
         if width < minCWidth:
             newOrdering = newOrder
             minCWidth = width
