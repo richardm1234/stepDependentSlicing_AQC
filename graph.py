@@ -40,7 +40,7 @@ def createGraph(n):
     Returns:
         nx.Graph: 3-regular graph
     """
-    G = nx.random_regular_graph(3, n)
+    G = nx.random_regular_graph(3, n, seed=7)
     return G
 
 def convertToLineGraph(circuit: QuantumCircuit):
