@@ -54,8 +54,14 @@ def convertToLineGraph(circuit: QuantumCircuit):
         nx.Graph: line graph representation
     """
     LG = nx.Graph()
+    idx = 0
+    q_indices = dict()
     for i in range(circuit.num_qubits):
-        LG.add_node(i)
+        q_indices[i] = i
+    LG.add_nodes_from(q_indices.values())
+
+    for gate in circuit.data:
+        pass
     return LG
 
 def contract(G, v):
