@@ -151,6 +151,18 @@ def rgreedy(G, tau, q):
             bestNeighbors = widths
     return bestOrder, bestWidth, bestNeighbors
 
+def getCost(width):
+    """
+    Get the computational cost which is 2 to the power of the contraction width
+
+    Args:
+        width (int): contraction width
+
+    Returns:
+        int: computational cost
+    """
+    return math.exp2(width)
+
 def plotNeighbors(widths):
     """
     Plot the number of neighbors
