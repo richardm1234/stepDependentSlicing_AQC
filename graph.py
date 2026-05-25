@@ -75,6 +75,9 @@ def contract(G, v):
     G.remove_node(v)
     return G_copy
 
+def greedy(G):
+    min = sorted(G.nodes(), key=lambda v: G.degree(v))[0]
+
 def rgreedy(G, tau, q):
     """
     Implementation of the randomized greedy ordering algorithm
@@ -198,5 +201,7 @@ def stepDependentSlicing(LG, order, n, r):
         list[nodes]: which nodes to slice
     """
     pass
+
+
 
 
