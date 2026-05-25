@@ -210,9 +210,9 @@ def findOptimalS(G, widths, order):
 
     return newOrdering, minCWidth, newWidths, optimalS, toSlice
 
-def stepDependentSlicing(LG, order, n, r):
+def stepDependentSlicing(LG, order, n=1, r=1):
     """
-    Slice a graph to find optimal step s
+    Build a schedule from running findOptimalS n times
 
     Args:
         LG (nx.Graph): line graph
@@ -221,8 +221,7 @@ def stepDependentSlicing(LG, order, n, r):
         r: number of nodes to slice per step
 
     Returns:
-        int: optimal s
-        list[nodes]: which nodes to slice
+        list[dict(int, int)]: list of optimal S and their corresponding slice nodes
     """
     pass
 
