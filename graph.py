@@ -219,27 +219,30 @@ def plotNeighbors(widths):
     plt.show()
 
 
-def plotComparison(oldWidth, newWidth):
+def plotComparison(widths, newWidths, optimalS):
     """
     Plot a comparison between old and new contraction width in one plot
 
     Args:
-        oldWidth: Old contraction width
-        newWidth: New contraction width
+        widths: Old contraction width
+        newWidths: New contraction width
+        optimalS: optimal step S, so contractions before that aren't cut off
     """
-    x1 = range(len(oldWidth))
-    x2 = range(len(newWidth))
+    paddedWidths = widths[:optimalS] + newWidths
+    x1 = range(len(widths))
+    x2 = range(len(paddedWidths))
     neighbors = plt.subplot(1, 2, 1)
-    neighbors.plot(x1, oldWidth, color='red', linestyle='-', label='Old Width')
-    neighbors.plot(x2, newWidth, color='blue', linestyle='-', label='New Width')
+    neighbors.plot(x1, widths, color='red', linestyle='-', label='Old Width')
+    neighbors.plot(x2, paddedWidths, color='blue', linestyle='-', label='New Width')
     neighbors.set_title("Contraction width")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
     neighbors.legend()
 
+
     cost = plt.subplot(1, 2, 2)
-    cost.plot(x1, np.exp2(oldWidth), color='red', linestyle='-', label='Old Cost')
-    cost.plot(x2, np.exp2(newWidth), color='blue', linestyle='-', label='New Cost')
+    cost.plot(x1, np.exp2(widths), color='red', linestyle='-', label='Old Cost')
+    cost.plot(x2, np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
     cost.set_title("Computational cost")
     cost.set_xlabel("Steps")
     cost.legend()
