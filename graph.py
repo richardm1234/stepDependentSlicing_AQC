@@ -60,8 +60,25 @@ def convertToLineGraph(circuit: QuantumCircuit):
         q_indices[i] = i
     LG.add_nodes_from(q_indices.values())
 
-    for gate in circuit.data:
-        pass
+    for instruction in circuit.data:
+        qubits = []
+
+        for q in instruction.qubits:
+            qubits.append(circuit.find_bit(q).index)
+
+        inputs = []
+        for q in qubits:
+            inputs.append(q_indices[q])
+
+        outputs = []
+        for q in qubits:
+            q_indices[q] = idx
+            idx += 1
+            outputs.append(q_indices[q])
+        gate_idx = inputs + outputs
+
+        LG.add_nodes_from(gate_idx)
+        LG.add_edges_from(combinations(gate_idx, 2))
     return LG
 
 def contract(G, v):
