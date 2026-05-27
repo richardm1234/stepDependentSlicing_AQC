@@ -33,18 +33,18 @@ def greedy(G):
     G_copy = G.copy()
     order = []
     width = 0
-    widths = []
+    widthProfile = []
 
     while G_copy.number_of_nodes() > 0:
 
         minDeg = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v))[0]
-        widths.append(G_copy.degree(minDeg))
+        widthProfile.append(G_copy.degree(minDeg))
         width = max(width, G_copy.degree(minDeg))
         order.append(minDeg)
 
         contract(G_copy, minDeg)
 
-    return order, width, widths
+    return order, width, widthProfile
 
 def rgreedy(G, tau, q):
     """
@@ -56,7 +56,7 @@ def rgreedy(G, tau, q):
         q (int): number of repetitions
 
     Returns:
-        list[int], int, list[int]: the best ordering, its contraction width and a list of widths
+        list[int], list[int], int: the best ordering, width profile and contraction width
     """
     bestOrder = None
     bestWidth = sys.maxsize
@@ -94,5 +94,5 @@ def rgreedy(G, tau, q):
             bestWidth = width
             bestOrder = order
             bestNeighbors = widths
-    return bestOrder, bestWidth, bestNeighbors
+    return bestOrder, bestNeighbors, bestWidth
 

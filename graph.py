@@ -1,23 +1,23 @@
 from ordering import *
 
-def findOptimalS(G, widths, order):
+def findOptimalS(G, widthProfile, order):
     """
     Find the optimal step s
 
     Args:
         G (nx.Graph): line graph
-        widths (list[int]): the degrees of each node
+        widthProfile (list[int]): the degrees of each node
         order (list[int]): the initial ordering
 
     Returns:
-        list[int], int, list[int], int, int: new ordering with less contraction width, the width profile
+        list[int], list[int], int, int, int: new ordering, new width profile, new contraction width,
         optimal step S and which vertices to slice
     """
-    peak = widths.index(max(widths))
-    minCWidth = sys.maxsize
+    peak = widthProfile.index(max(widthProfile))
+    minWidth = sys.maxsize
     optimalS = 0
     toSlice = None
-    newWidths = []
+    newWidthProfile = []
     newOrdering = []
 
     for s in range(peak):
@@ -27,14 +27,14 @@ def findOptimalS(G, widths, order):
         maxNeighbors = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v), reverse=True)[0]
         G_copy.remove_node(maxNeighbors)
         newOrder, width, neighbors = greedy(G_copy)
-        if width < minCWidth:
+        if width < minWidth:
             newOrdering = newOrder
-            minCWidth = width
-            newWidths = neighbors
+            minWidth = width
+            newWidthProfile = neighbors
             optimalS = s
             toSlice = maxNeighbors
 
-    return newOrdering, minCWidth, newWidths, optimalS, toSlice
+    return newOrdering, newWidthProfile, minWidth, optimalS, toSlice
 
 def stepDependentSlicing(LG, order, n=1, r=1):
     """

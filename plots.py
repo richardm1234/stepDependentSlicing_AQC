@@ -1,43 +1,43 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plotNeighbors(widths):
+def plotNeighbors(widthProfile):
     """
     Plot the number of neighbors
 
     Args:
-        widths: The number of neighbors
+        widthProfile: The number of neighbors
     """
-    x = range(len(widths))
+    x = range(len(widthProfile))
     neighbors = plt.subplot(1,2,1)
-    neighbors.plot(x, widths, color='red', linestyle='-')
-    neighbors.set_title("Contraction width")
+    neighbors.plot(x, widthProfile, color='red', linestyle='-')
+    neighbors.set_title("Width profile")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
 
     cost = plt.subplot(1,2,2)
-    cost.plot(x, np.exp2(widths), color='red', linestyle='-')
+    cost.plot(x, np.exp2(widthProfile), color='red', linestyle='-')
     cost.set_title("Computational cost")
     cost.set_xlabel("Steps")
 
     plt.show()
 
 
-def plotComparison(widths, newWidths, optimalS):
+def plotComparison(widthProfile, newWidthProfile, optimalS):
     """
     Plot a comparison between old and new contraction width in one plot
 
     Args:
         widths: Old contraction width
         newWidths: New contraction width
-        optimalS: optimal step S, so contractions before that aren't cut off
+        optimalS: optimal step S
     """
-    paddedWidths = widths[:optimalS] + newWidths
-    x1 = range(len(widths))
-    x2 = range(len(paddedWidths))
+    # ensures plot shows not only from step S onwards
+    paddedWidths = widthProfile[:optimalS] + newWidthProfile
+
     neighbors = plt.subplot(1, 2, 1)
-    neighbors.plot(x1, widths, color='red', linestyle='-', label='Old Width')
-    neighbors.plot(x2, paddedWidths, color='blue', linestyle='-', label='New Width')
+    neighbors.plot(range(len(widthProfile)), widthProfile, color='red', linestyle='-', label='Old Width')
+    neighbors.plot(range(len(paddedWidths)), paddedWidths, color='blue', linestyle='-', label='New Width')
     neighbors.set_title("Contraction width")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
@@ -45,8 +45,8 @@ def plotComparison(widths, newWidths, optimalS):
     neighbors.legend()
 
     cost = plt.subplot(1, 2, 2)
-    cost.plot(x1, np.exp2(widths), color='red', linestyle='-', label='Old Cost')
-    cost.plot(x2, np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
+    cost.plot(range(len(widthProfile)), np.exp2(widthProfile), color='red', linestyle='-', label='Old Cost')
+    cost.plot(range(len(paddedWidths)), np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
     cost.set_title("Computational cost")
     cost.set_xlabel("Steps")
     cost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
