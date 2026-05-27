@@ -63,6 +63,7 @@ def convertToLineGraph(circuit: QuantumCircuit):
 
     for instruction in circuit.data:
         qubits = []
+        gate = instruction.operation
 
         for q in instruction.qubits:
             qubits.append(circuit.find_bit(q).index)
@@ -70,6 +71,7 @@ def convertToLineGraph(circuit: QuantumCircuit):
         inputs = []
         for q in qubits:
             inputs.append(q_indices[q])
+
 
         outputs = []
         for q in qubits:
