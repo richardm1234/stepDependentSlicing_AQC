@@ -24,9 +24,13 @@ def createCircuit(G):
     circuit.h(range(n))
 
     for u,v in G.edges():
-        circuit.rzz(2*gamma, u, v)
+        circuit.cx(u,v)
+        circuit.rz(2*gamma, v)
+        circuit.cx(u,v)
     for i in range(n):
-        circuit.rx(2*beta, i)
+        circuit.h(i)
+        circuit.rz(2*beta, i)
+        circuit.h(i)
 
     return circuit
 
