@@ -77,12 +77,16 @@ def convertToLineGraph(circuit: QuantumCircuit):
             inputs.append(q_indices[q])
 
 
-        outputs = []
-        for q in qubits:
-            q_indices[q] = idx
-            outputs.append(q_indices[q])
-            idx += 1
-        gate_idx = inputs + outputs
+        if gate.name == 'rz':
+            gate_idx = inputs
+
+        else:
+            outputs = []
+            for q in qubits:
+                q_indices[q] = idx
+                outputs.append(q_indices[q])
+                idx += 1
+            gate_idx = inputs + outputs
 
         LG.add_nodes_from(gate_idx)
         LG.add_edges_from(combinations(gate_idx, 2))
