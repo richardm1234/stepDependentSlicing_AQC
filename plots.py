@@ -6,7 +6,7 @@ def plotNeighbors(widthProfile):
     Plot the number of neighbors
 
     Args:
-        widthProfile: The number of neighbors
+        widthProfile (list[int]): The number of neighbors
     """
     x = range(len(widthProfile))
     neighbors = plt.subplot(1,2,1)
@@ -28,9 +28,9 @@ def plotComparison(widthProfile, newWidthProfile, optimalS):
     Plot a comparison between old and new contraction width in one plot
 
     Args:
-        widths: Old contraction width
-        newWidths: New contraction width
-        optimalS: optimal step S
+        widthProfile (list[int]): Old contraction width
+        newWidthProfile (list[int]): New contraction width
+        optimalS (int): optimal step S
     """
     # ensures plot shows not only from step S onwards
     paddedWidths = widthProfile[:optimalS] + newWidthProfile

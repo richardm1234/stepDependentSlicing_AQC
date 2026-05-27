@@ -42,9 +42,9 @@ def stepDependentSlicing(LG, order, n=1, r=1):
 
     Args:
         LG (nx.Graph): line graph
-        order: ordering of which indices to contract based on rgreedy
-        n: total number of indices to slice
-        r: number of nodes to slice per step
+        order (list[int]): ordering of which indices to contract based on rgreedy
+        n (int): total number of indices to slice
+        r (int): number of nodes to slice per step
 
     Returns:
         list[dict(int, int)]: list of optimal S and their corresponding slice nodes

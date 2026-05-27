@@ -9,7 +9,7 @@ def contract(G, v):
 
     Args:
          G (nx.Graph): graph
-         v (_Node): the node to be removed
+         v (int): the node to be removed
 
     Returns:
           nx.Graph: copy of G after contracting node v
@@ -22,13 +22,13 @@ def contract(G, v):
 
 def greedy(G):
     """
-    Always eliminate lowest degree vertex
+    Implementation of the greedy algorithm
 
     Args:
         G (nx.Graph): graph
 
     Returns:
-        list[int], int, list[int]: the ordering, contraction width and the widths
+        list[int], list[int], int: the ordering, the width profile and the contraction width
     """
     G_copy = G.copy()
     order = []
@@ -44,7 +44,7 @@ def greedy(G):
 
         contract(G_copy, minDeg)
 
-    return order, width, widthProfile
+    return order, widthProfile, width
 
 def rgreedy(G, tau, q):
     """
