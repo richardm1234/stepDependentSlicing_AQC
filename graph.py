@@ -206,7 +206,7 @@ def plotNeighbors(widths):
     cost = plt.subplot(1,2,2)
     cost.plot(x, np.exp2(widths), color='red', linestyle='-')
     cost.set_title("Computational cost")
-    neighbors.set_xlabel("Steps")
+    cost.set_xlabel("Steps")
 
     plt.show()
 
@@ -222,19 +222,19 @@ def plotComparison(oldWidth, newWidth):
     x1 = range(len(oldWidth))
     x2 = range(len(newWidth))
     neighbors = plt.subplot(1, 2, 1)
-    neighbors.plot(x1, oldWidth, color='red', linestyle='-')
-    neighbors.plot(x2, newWidth, color='blue', linestyle='.')
+    neighbors.plot(x1, oldWidth, color='red', linestyle='-', label='Old Width')
+    neighbors.plot(x2, newWidth, color='blue', linestyle='-', label='New Width')
     neighbors.set_title("Contraction width")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
-    plt.legend()
+    neighbors.legend()
 
     cost = plt.subplot(1, 2, 2)
-    cost.plot(x1, np.exp2(oldWidth), color='red', linestyle='-')
-    cost.plot(x2, np.exp2(newWidth), color='blue', linestyle='.')
+    cost.plot(x1, np.exp2(oldWidth), color='red', linestyle='-', label='Old Cost')
+    cost.plot(x2, np.exp2(newWidth), color='blue', linestyle='-', label='New Cost')
     cost.set_title("Computational cost")
-    neighbors.set_xlabel("Steps")
-    plt.legend()
+    cost.set_xlabel("Steps")
+    cost.legend()
 
     plt.show()
 
