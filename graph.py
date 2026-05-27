@@ -210,6 +210,34 @@ def plotNeighbors(widths):
 
     plt.show()
 
+
+def plotComparison(oldWidth, newWidth):
+    """
+    Plot a comparison between old and new contraction width in one plot
+
+    Args:
+        oldWidth: Old contraction width
+        newWidth: New contraction width
+    """
+    x1 = range(len(oldWidth))
+    x2 = range(len(newWidth))
+    neighbors = plt.subplot(1, 2, 1)
+    neighbors.plot(x1, oldWidth, color='red', linestyle='-')
+    neighbors.plot(x2, newWidth, color='blue', linestyle='.')
+    neighbors.set_title("Contraction width")
+    neighbors.set_xlabel("Steps")
+    neighbors.set_ylabel("Number of neighbors")
+    plt.legend()
+
+    cost = plt.subplot(1, 2, 2)
+    cost.plot(x1, np.exp2(oldWidth), color='red', linestyle='-')
+    cost.plot(x2, np.exp2(newWidth), color='blue', linestyle='.')
+    cost.set_title("Computational cost")
+    neighbors.set_xlabel("Steps")
+    plt.legend()
+
+    plt.show()
+
 def findOptimalS(G, widths, order):
     """
     Find the optimal step s
