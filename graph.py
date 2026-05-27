@@ -59,6 +59,7 @@ def convertToLineGraph(circuit: QuantumCircuit):
     for i in range(circuit.num_qubits):
         q_indices[i] = i
     LG.add_nodes_from(q_indices.values())
+    idx += circuit.num_qubits
 
     for instruction in circuit.data:
         qubits = []
@@ -73,8 +74,8 @@ def convertToLineGraph(circuit: QuantumCircuit):
         outputs = []
         for q in qubits:
             q_indices[q] = idx
-            idx += 1
             outputs.append(q_indices[q])
+            idx += 1
         gate_idx = inputs + outputs
 
         LG.add_nodes_from(gate_idx)
