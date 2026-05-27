@@ -24,9 +24,7 @@ def createCircuit(G):
     circuit.h(range(n))
 
     for u,v in G.edges():
-        circuit.cx(u,v)
-        circuit.rz(2*gamma, v)
-        circuit.cx(u,v)
+        circuit.rzz(2*gamma, u, v)
     for i in range(n):
         circuit.h(i)
         circuit.rz(2*beta, i)
@@ -76,9 +74,11 @@ def convertToLineGraph(circuit: QuantumCircuit):
         for q in qubits:
             inputs.append(q_indices[q])
 
-
         if gate.name == 'rz':
-            gate_idx = inputs
+            new_idx = idx
+            idx += 1
+            q_indices[qubits[0]] = new_idx
+            gate_idx = inputs + [new_idx]
 
         else:
             outputs = []
@@ -237,14 +237,15 @@ def plotComparison(widths, newWidths, optimalS):
     neighbors.set_title("Contraction width")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
+    neighbors.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
     neighbors.legend()
-
 
     cost = plt.subplot(1, 2, 2)
     cost.plot(x1, np.exp2(widths), color='red', linestyle='-', label='Old Cost')
     cost.plot(x2, np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
     cost.set_title("Computational cost")
     cost.set_xlabel("Steps")
+    cost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
     cost.legend()
 
     plt.show()
