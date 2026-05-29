@@ -54,6 +54,8 @@ def stepDependentSlicing(LG, order, widthProfile, n=2, r=1):
     startS = 0
     for _ in range(n):
         newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order)
+        if toSlice is None:
+            break
         schedule[optimalS] = toSlice
         order = newOrder
         widthProfile = newWidthProfile
