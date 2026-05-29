@@ -36,7 +36,7 @@ def findOptimalS(G, widthProfile, order):
 
     return newOrdering, newWidthProfile, minWidth, optimalS, toSlice
 
-def stepDependentSlicing(LG, order, widthProfile, n, r):
+def stepDependentSlicing(LG, order, widthProfile, n=2, r=1):
     """
     Build a schedule from running findOptimalS n times
 
@@ -50,7 +50,7 @@ def stepDependentSlicing(LG, order, widthProfile, n, r):
     Returns:
         dict(int, int): optimal S and their corresponding slice nodes
     """
-    schedule = dict()
+    schedule = {}
     for _ in range(n):
         newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order)
         schedule[optimalS] = toSlice
