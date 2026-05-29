@@ -1,6 +1,6 @@
 from ordering import *
 
-def findOptimalS(G, widthProfile, order):
+def findOptimalS(G, widthProfile, order, startS=0):
     """
     Find the optimal step s
 
@@ -20,13 +20,13 @@ def findOptimalS(G, widthProfile, order):
     newWidthProfile = []
     newOrdering = []
 
-    for s in range(peak):
+    for s in range(startS, peak):
         G_copy = G.copy()
         for v in order[:s]:
             contract(G_copy, v)
         maxNeighbors = sorted(G_copy.nodes(), key=lambda v: G_copy.degree(v), reverse=True)[0]
         G_copy.remove_node(maxNeighbors)
-        newOrder, width, neighbors = greedy(G_copy)
+        newOrder, neighbors, width = greedy(G_copy)
         if width < minWidth:
             newOrdering = newOrder
             minWidth = width
@@ -48,14 +48,16 @@ def stepDependentSlicing(LG, order, widthProfile, n=2, r=1):
         r (int): number of nodes to slice per step
 
     Returns:
-        dict(int, int): optimal S and their corresponding slice nodes
+        dict[int, int]: optimal S and their corresponding slice nodes
     """
     schedule = {}
+    startS = 0
     for _ in range(n):
         newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order)
         schedule[optimalS] = toSlice
         order = newOrder
         widthProfile = newWidthProfile
+        startS = optimalS + 1
 
     return schedule
 
