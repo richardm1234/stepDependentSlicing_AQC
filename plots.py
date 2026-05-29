@@ -35,21 +35,28 @@ def plotComparison(widthProfile, newWidthProfile, optimalS):
     # ensures plot shows not only from step S onwards
     paddedWidths = widthProfile[:optimalS] + newWidthProfile
 
-    neighbors = plt.subplot(1, 2, 1)
+    fig, plots = plt.subplots(2,2)
+    neighbors = plots[0,0]
     neighbors.plot(range(len(widthProfile)), widthProfile, color='red', linestyle='-', label='Old Width')
-    neighbors.plot(range(len(paddedWidths)), paddedWidths, color='blue', linestyle='-', label='New Width')
+
     neighbors.set_title("Contraction width")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
     neighbors.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
-    neighbors.legend()
+    #neighbors.legend()
 
-    cost = plt.subplot(1, 2, 2)
+    newNeighbors = plots[0,1]
+    newNeighbors.plot(range(len(paddedWidths)), paddedWidths, color='blue', linestyle='-', label='New Width')
+
+    cost = plots[1,0]
     cost.plot(range(len(widthProfile)), np.exp2(widthProfile), color='red', linestyle='-', label='Old Cost')
-    cost.plot(range(len(paddedWidths)), np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
     cost.set_title("Computational cost")
     cost.set_xlabel("Steps")
     cost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
-    cost.legend()
+    #cost.legend()
+
+    newCost = plots[1,1]
+    newCost.plot(range(len(paddedWidths)), np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
+
 
     plt.show()
