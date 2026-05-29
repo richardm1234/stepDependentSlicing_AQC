@@ -36,20 +36,29 @@ def findOptimalS(G, widthProfile, order):
 
     return newOrdering, newWidthProfile, minWidth, optimalS, toSlice
 
-def stepDependentSlicing(LG, order, n=1, r=1):
+def stepDependentSlicing(LG, order, widthProfile, n, r):
     """
     Build a schedule from running findOptimalS n times
 
     Args:
         LG (nx.Graph): line graph
         order (list[int]): ordering of which indices to contract based on rgreedy
+        widthProfile (list[int]): width profile
         n (int): total number of indices to slice
         r (int): number of nodes to slice per step
 
     Returns:
-        list[dict(int, int)]: list of optimal S and their corresponding slice nodes
+        dict(int, int): optimal S and their corresponding slice nodes
     """
-    pass
+    schedule = dict()
+    for _ in range(n):
+        newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order)
+        schedule[optimalS] = toSlice
+        order = newOrder
+        widthProfile = newWidthProfile
+
+    return schedule
+
 
 
 
