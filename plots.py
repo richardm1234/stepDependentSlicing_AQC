@@ -38,8 +38,7 @@ def plotComparison(widthProfile, newWidthProfile, optimalS):
     fig, plots = plt.subplots(2,2)
     neighbors = plots[0,0]
     neighbors.plot(range(len(widthProfile)), widthProfile, color='red', linestyle='-', label='Old Width')
-
-    neighbors.set_title("Contraction width")
+    neighbors.set_title("Contraction width before")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
     neighbors.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
@@ -47,16 +46,22 @@ def plotComparison(widthProfile, newWidthProfile, optimalS):
 
     newNeighbors = plots[0,1]
     newNeighbors.plot(range(len(paddedWidths)), paddedWidths, color='blue', linestyle='-', label='New Width')
+    newNeighbors.set_title("Contraction width after")
+    newNeighbors.set_xlabel("Steps")
+    newNeighbors.set_ylabel("Number of neighbors")
+    newNeighbors.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
 
     cost = plots[1,0]
     cost.plot(range(len(widthProfile)), np.exp2(widthProfile), color='red', linestyle='-', label='Old Cost')
-    cost.set_title("Computational cost")
+    cost.set_title("Computational cost before")
     cost.set_xlabel("Steps")
     cost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
     #cost.legend()
 
     newCost = plots[1,1]
     newCost.plot(range(len(paddedWidths)), np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
-
+    newCost.set_title("Computational cost after")
+    newCost.set_xlabel("Steps")
+    newCost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
 
     plt.show()
