@@ -2,7 +2,20 @@ import networkx as nx
 from qiskit import QuantumCircuit
 from itertools import combinations
 
-def createCircuit(G):
+def createGraph(n):
+    """
+    Create a 3-regular graph with 10 nodes
+
+    Args:
+        n (int): The number of nodes
+
+    Returns:
+        nx.Graph: 3-regular graph
+    """
+    G = nx.random_regular_graph(3, n, seed=7)
+    return G
+
+def convertToCircuit(G):
     """
     Convert a 3-regular graph to a QAOA circuit
 
@@ -26,19 +39,6 @@ def createCircuit(G):
         circuit.h(i)
 
     return circuit
-
-def createGraph(n):
-    """
-    Create a 3-regular graph with 10 nodes
-
-    Args:
-        n (int): The number of nodes
-
-    Returns:
-        nx.Graph: 3-regular graph
-    """
-    G = nx.random_regular_graph(3, n, seed=7)
-    return G
 
 def convertToLineGraph(circuit):
     """
