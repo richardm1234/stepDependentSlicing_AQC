@@ -41,7 +41,7 @@ def findOptimalS(G, widthProfile, order, startS=0, r=1):
 
     return newOrdering, newWidthProfile, minWidth, optimalS, toSlice
 
-def stepDependentSlicing(LG, order, widthProfile, n=2, r=1):
+def stepDependentSlicing(LG, order, widthProfile, n=1, r=1):
     """
     Build a schedule from running findOptimalS n times
 
