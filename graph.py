@@ -55,7 +55,6 @@ def stepDependentSlicing(LG, order, widthProfile, n=2, r=1):
     Returns:
         dict[int, list[int]]: optimal S and their corresponding slice nodes
     """
-    assert r <= n, f"r ({r}) should be smaller than n ({n})"
     schedule = {}
     startS = 0
     for _ in range(n//r):
