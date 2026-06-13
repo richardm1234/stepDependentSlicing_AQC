@@ -20,7 +20,7 @@ def convertToCircuit(G):
     Convert a 3-regular graph to a QAOA circuit
 
     Args:
-        G (nx.Graph): Graph from createNodeGraph()
+        G (nx.Graph): Graph from createGraph()
 
     Returns:
         QuantumCircuit: QAOA Quantum Circuit
