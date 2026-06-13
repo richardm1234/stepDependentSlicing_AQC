@@ -5,20 +5,19 @@ from itertools import combinations
 
 def contract(G, v):
     """
-    Contract a tensor index by removing a node and turning its neighbors into a clique
+    Contract in-place a tensor index by removing a node and turning its neighbors into a clique
 
     Args:
          G (nx.Graph): graph
          v (int): the node to be removed
 
     Returns:
-          nx.Graph: copy of G after contracting node v
+          nx.Graph: graph G after contracting node v
     """
-    G_copy = G.copy()
     neighbors = list(G.neighbors(v))
     G.add_edges_from(combinations(neighbors, 2))
     G.remove_node(v)
-    return G_copy
+    return G
 
 def greedy(G):
     """
