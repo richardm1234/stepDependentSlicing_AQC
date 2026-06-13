@@ -55,49 +55,14 @@ def stepDependentSlicing(LG, order, widthProfile, n=1, r=1):
     Returns:
         dict[int, list[int]]: optimal steps S and their corresponding nodes to slice
     """
-    schedule = {}
     G_copy = LG.copy()
 
-    for _ in range(n//r):
-        newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(G_copy, widthProfile, order, 0, r)
-        if toSlice is None:
-            break
-        schedule[optimalS] = toSlice
-        for v in toSlice:
-            G_copy.remove_node(v)
-        order = newOrder
-        widthProfile = newWidthProfile
+    newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(G_copy, widthProfile, order, 0, r)
+    if toSlice is None:
+        return {}
+    return {optimalS: toSlice}
 
 
-    return schedule
-
-def evaluateSchedule(G, order, widthProfile, schedule, tau=0.02, q=100):
-    """
-    Evaluate the schedule and re-order with rgreedy
-
-    Args:
-        G (nx.Graph): graph
-        order (list[int]): the ordering
-        widthProfile (list[int]): width profile
-        schedule (dict[int, list[int]]): optimal steps S and their corresponding nodes to slice
-        tau (float): sensitivity parameter for rgreedy
-        q (int): repetitions of rgreedy
-
-    Returns:
-        list[int], list[int], int: ordering, padded width profile and the new contraction width
-    """
-    G_copy = G.copy()
-    s = min(schedule.keys())
-    for v in order[:s]:
-        contract(G_copy, v)
-
-    for sliceVars in schedule.values():
-        for v in sliceVars:
-            G_copy.remove_node(v)
-
-    newOrder, newWidthProfile, newWidth = rgreedy(G_copy, tau, q)
-    paddedWidthProfile = widthProfile[:s] + newWidthProfile
-    return newOrder, paddedWidthProfile, newWidth
 
 
 
