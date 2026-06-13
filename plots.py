@@ -32,6 +32,9 @@ def plotComparison(widthProfile, newWidthProfile, schedule):
         newWidthProfile (list[int]): New contraction width
         schedule (dict[int, list[int]]): optimal steps S and their corresponding nodes to slice
     """
+    if not schedule:
+        print("No slicing found")
+        return
     # ensures plot shows not only from step S onwards
     paddedWidths = widthProfile[:min(schedule.keys())] + newWidthProfile
 
