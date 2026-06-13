@@ -23,17 +23,17 @@ def plotNeighbors(widthProfile):
     plt.show()
 
 
-def plotComparison(widthProfile, newWidthProfile, optimalS):
+def plotComparison(widthProfile, newWidthProfile, schedule):
     """
     Plot a comparison between old and new contraction width in one plot
 
     Args:
         widthProfile (list[int]): Old contraction width
         newWidthProfile (list[int]): New contraction width
-        optimalS (int): optimal step S
+        schedule (dict[int, list[int]]): optimal steps S and their corresponding nodes to slice
     """
     # ensures plot shows not only from step S onwards
-    paddedWidths = widthProfile[:optimalS] + newWidthProfile
+    paddedWidths = widthProfile[:min(schedule.keys())] + newWidthProfile
 
     fig, plots = plt.subplots(2,2, sharey='col')
 
@@ -43,27 +43,33 @@ def plotComparison(widthProfile, newWidthProfile, optimalS):
     neighbors.set_title("Contraction width before")
     neighbors.set_xlabel("Steps")
     neighbors.set_ylabel("Number of neighbors")
-    neighbors.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
+
 
     newNeighbors = plots[1,0]
     newNeighbors.plot(range(len(paddedWidths)), paddedWidths, color='blue', linestyle='-', label='New Width')
     newNeighbors.set_title("Contraction width after")
     newNeighbors.set_xlabel("Steps")
     newNeighbors.set_ylabel("Number of neighbors")
-    newNeighbors.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
+
 
     # Cost plots
     cost = plots[0,1]
     cost.plot(range(len(widthProfile)), np.exp2(widthProfile), color='red', linestyle='-', label='Old Cost')
     cost.set_title("Computational cost before")
     cost.set_xlabel("Steps")
-    cost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
+
 
     newCost = plots[1,1]
     newCost.plot(range(len(paddedWidths)), np.exp2(paddedWidths), color='blue', linestyle='-', label='New Cost')
     newCost.set_title("Computational cost after")
     newCost.set_xlabel("Steps")
-    newCost.axvline(x=optimalS, color='green', linestyle='--', label='Slice')
+
+
+    for s in schedule.keys():
+        neighbors.axvline(x=s, color='green', linestyle='--', label='Slice')
+        newNeighbors.axvline(x=s, color='green', linestyle='--', label='Slice')
+        cost.axvline(x=s, color='green', linestyle='--', label='Slice')
+        newCost.axvline(x=s, color='green', linestyle='--', label='Slice')
 
     plt.tight_layout()
     plt.show()
