@@ -51,14 +51,13 @@ def stepDependentSlicing(LG, order, widthProfile):
         widthProfile (list[int]): width profile
 
     Returns:
-        dict[int, list[int]]: optimal step S and its corresponding node to slice
+        dict[int, list[int]], list[int], int: optimal step S and its corresponding node to slice, new width profile and new contraction width
     """
-    G_copy = LG.copy()
 
-    newOrder, newWidthProfile, minWidth, optimalS, toSlice = findOptimalS(G_copy, widthProfile, order, 0, 1)
+    newOrder, newWidthProfile, newWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order, 0, 1)
     if toSlice is None:
-        return {}
-    return {optimalS: toSlice}
+        return {}, widthProfile, max(widthProfile)
+    return {optimalS: toSlice}, newWidthProfile, newWidth
 
 
 
