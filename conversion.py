@@ -4,7 +4,7 @@ from itertools import combinations
 
 def createGraph(n):
     """
-    Create a 3-regular graph with 10 nodes
+    Create a 3-regular graph with n nodes
 
     Args:
         n (int): The number of nodes
