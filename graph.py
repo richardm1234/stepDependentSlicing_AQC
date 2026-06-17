@@ -1,3 +1,7 @@
+"""
+This module provides functions for operating on a line graph
+"""
+
 from ordering import *
 
 def findOptimalS(G, widthProfile, order, startS=0, r=1):

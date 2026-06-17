@@ -1,3 +1,7 @@
+"""
+This module provides functions for finding a contraction order
+"""
+
 import sys
 import math
 import random

@@ -1,3 +1,7 @@
+"""
+This module provides functions for plotting
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 

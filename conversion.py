@@ -1,3 +1,7 @@
+"""
+This module provides the conversion from graph -> circuit -> line graph
+"""
+
 import networkx as nx
 from qiskit import QuantumCircuit
 from itertools import combinations
