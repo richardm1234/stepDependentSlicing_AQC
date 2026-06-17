@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "stepDependentSlicing_AQC"
+abstract: "Step-dependent slicing for tensor network contraction of QAOA circuits. Developed as part of Seminar: Advanced Topics in Quantum Computing, TU Munich."
+authors:
+  - family-names: "Mayer"
+    given-names: "Richard"
+    email: "richard.mayer@tum.de"
+    affiliation: "Technische Universität München"
+version: "1.0.0"
+date-released: "2026-01-01"
+license: MIT
+repository-code: "https://github.com/richardm1234/stepDependentSlicing_AQC"
+keywords:
+  - quantum computing
+  - tensor networks
+  - QAOA
+  - circuit simulation
+  - contraction ordering
+  - slicing
+references:
+  - type: article
+    authors:
+      - family-names: "Lykov"
+        given-names: "Danylo"
+    title: "QTensor: Quantum Circuit Simulation with Tensor Networks"
+    year: 2021
+    notes: "This project implements parts of the step-dependent slicing approach described in this work."
