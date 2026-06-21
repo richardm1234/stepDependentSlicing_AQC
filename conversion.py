@@ -37,6 +37,7 @@ def convertToCircuit(G):
 
     for u,v in G.edges():
         circuit.rzz(2*gamma, u, v)
+    circuit.barrier()
     for i in range(n):
         circuit.rx(2*beta, i)
 
@@ -61,9 +62,11 @@ def convertToLineGraph(circuit):
     idx += circuit.num_qubits
 
     for instruction in circuit.data:
-        qubits = []
         gate = instruction.operation
 
+
+
+        qubits = []
         for q in instruction.qubits:
             qubits.append(circuit.find_bit(q).index)
 
@@ -77,7 +80,8 @@ def convertToLineGraph(circuit):
             q_indices[qubits[0]] = new_idx
             q_indices[qubits[1]] = new_idx
             gate_idx = inputs + [new_idx]
-
+        elif gate.name == 'barrier':
+            continue
         else:
             outputs = []
             for q in qubits:
