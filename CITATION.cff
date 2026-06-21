@@ -23,6 +23,19 @@ references:
     authors:
       - family-names: "Lykov"
         given-names: "Danylo"
+      - family-names: "Schutski"
+        given-names: "Roman"
+      - family-names: "Galda"
+        given-names: "Alexey"
+      - family-names: "Vinokur"
+        given-names: "Valeri"
+      - family-names: "Alexeev"
+        given-names: "Yuri"
     title: "Tensor Network Quantum Simulator with Step-Dependent Parallelization"
-    year: 2021
+    year: 2022
+    conference:
+        name: "IEEE International Conference on Quantum Computing and Engineering (QCE)"
+        city: "Broomfield"
+        region: "CO"
+        country: "USA"
     notes: "This project implements parts of the step-dependent slicing approach described in this work."
