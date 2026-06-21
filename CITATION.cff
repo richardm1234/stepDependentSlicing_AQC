@@ -8,7 +8,7 @@ authors:
     email: "richard.mayer@tum.de"
     affiliation: "Technische Universität München"
 version: "1.0.0"
-date-released: "2026-01-01"
+date-released: "2026-06-21"
 license: MIT
 repository-code: "https://github.com/richardm1234/stepDependentSlicing_AQC"
 keywords:
@@ -23,6 +23,6 @@ references:
     authors:
       - family-names: "Lykov"
         given-names: "Danylo"
-    title: "QTensor: Quantum Circuit Simulation with Tensor Networks"
+    title: "Tensor Network Quantum Simulator with Step-Dependent Parallelization"
     year: 2021
     notes: "This project implements parts of the step-dependent slicing approach described in this work."
