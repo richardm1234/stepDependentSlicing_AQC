@@ -38,9 +38,7 @@ def convertToCircuit(G):
     for u,v in G.edges():
         circuit.rzz(2*gamma, u, v)
     for i in range(n):
-        circuit.h(i)
-        circuit.rz(2*beta, i)
-        circuit.h(i)
+        circuit.rx(2*beta, i)
 
     return circuit
 
@@ -73,10 +71,11 @@ def convertToLineGraph(circuit):
         for q in qubits:
             inputs.append(q_indices[q])
 
-        if gate.name == 'rz':
+        if gate.name == 'rzz':
             new_idx = idx
             idx += 1
             q_indices[qubits[0]] = new_idx
+            q_indices[qubits[1]] = new_idx
             gate_idx = inputs + [new_idx]
 
         else:
