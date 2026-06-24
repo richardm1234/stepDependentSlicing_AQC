@@ -58,7 +58,7 @@ def stepDependentSlicing(LG, order, widthProfile):
         dict[int, list[int]], list[int], int: optimal step S and its corresponding node to slice, new width profile and new contraction width
     """
 
-    newOrder, newWidthProfile, newWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order, 0, 1)
+    newOrder, newWidthProfile, newWidth, optimalS, toSlice = findOptimalS(LG, widthProfile, order)
     if toSlice is None:
         return {}, widthProfile, max(widthProfile)
     return {optimalS: toSlice}, newWidthProfile, newWidth
