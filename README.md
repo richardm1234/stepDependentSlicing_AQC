@@ -14,9 +14,9 @@ This project implements step-dependent slicing for tensor network contraction to
 
 ```
 .
-├── graph.py          # Graph construction and QAOA circuit utilities
+├── graph.py          # Operations on line graph - Step-dependent Slicing logic
 ├── conversion.py     # Conversion between circuit and tensor network representations
-├── ordering.py       # Contraction ordering and step-dependent slicing logic
+├── ordering.py       # Contraction ordering
 ├── plots.py          # Visualisation of contraction width and slicing results
 ├── demo.ipynb        # Interactive Jupyter notebook demo
 ├── requirements.txt  # Python dependencies
@@ -47,12 +47,12 @@ jupyter notebook demo.ipynb
 Or use the modules directly:
 
 ```python
-from conversion import *
+from conversion import convertToCircuit, convertToLineGraph, createGraph
 from ordering import rgreedy
 from graph import stepDependentSlicing
 from plots import plotComparison
 
-G = createGraph(10)
+G = createGraph(20)
 circuit = convertToCircuit(G)
 LG = convertToLineGraph(circuit)
 
